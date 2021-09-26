@@ -1,0 +1,39 @@
+/* Bootstrap overrides */
+h1.text-center {
+    margin: 5px auto 15px auto;
+}
+.form-group {
+    margin-top: 20px;
+}
+/* Custom styles */
+.board {
+    margin-top: 10px;
+    cursor: pointer;
+}
+.board .row {
+    --bs-gutter-x: 0;
+}
+.board .col {
+    text-align: center;
+    font-size: 90px;
+    min-height: 140px;
+}
+.highlight-move {
+    color: #339933;
+}
+/* Custom regions */
+#wins_losses {
+    text-align: center;
+}
+#menu {
+    float: right;
+}
+#p1, #p4, #p7 {
+    border-right: 3px solid #000000;
+}
+#p3, #p6, #p9 {
+    border-left: 3px solid #000000;
+}
+#p1, #p2, #p3, #p4, #p5, #p6 {
+    border-bottom: 3px solid #000000;
+}
