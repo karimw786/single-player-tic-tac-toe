@@ -21,9 +21,9 @@ MOV;
                 <script type="text/javascript">
                 $(document).ready(function() {
                     computer_move("X");
-            $(".board .col").click(function(event) {
-                        player_move(this.id, "O");                              
-                    });
+                    $(".board .col").click(function(event) {
+                        player_move(this.id, "O");
+                    });    
                 });
                 </script>              
 MOV;

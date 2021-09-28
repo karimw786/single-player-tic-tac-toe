@@ -1,13 +1,12 @@
 <?php 
 function draw_board($rows, $cols) {
-    $p = 1;
     $board = '<div class="board">';
     
     for($row = 1; $row <= $rows; $row++) {
-        $board .= '<div class="row" id="r' . $row . '">';
+        $board .= '<div class="row">';
 
         for($col = 1; $col <= $cols; $col++) {
-            $board .= '<div class="col" id="p' . $p++ . '"></div>';
+            $board .= '<div class="col" id="r' . $row . 'c' . $col . '"></div>';
         }
 
         $board .= "</div>";

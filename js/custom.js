@@ -9,16 +9,18 @@ var turn_lock = 1;                      // Lock must be held before being able t
 function player_move(id, m) {
     // If player holds turn_lock, proceed with making move
     if (turn_lock == 1) {
-        var n = parseInt(id.charAt(id.length - 1));
-        var selector = "#p".concat(n);
+        var r = id.charAt(1);                   // Row of the move to be made
+        var c = id.charAt(3);                   // Col of the move to be made
+        var selector = "#r".concat(r, "c", c);  // CSS selector of the position 
+        var winner;                             // Determines winner, if there is one yet
 
         // If square is empty...
         if ($(selector).is(":empty")) {
             // ...make move
             $(selector).html(m);
             moves += 1;
-            update_scores("player", n);
-            var winner = check_winner();
+            update_scores("player", r, c);
+            winner = check_winner();
 
             if (winner) {
                 setTimeout(function(){display_winner(winner);}, delay_duration);                
@@ -35,113 +37,49 @@ function player_move(id, m) {
 
 // Computer places X or O (m) randomly on an empty square
 function computer_move(m) {
-    turn_lock = 0; // Grab turn_lock
-    var move_made = false;
-    var maximum_tries = 100;
-    var n; // The position of the move to be made
-    var selector; // CSS selector of the position
+    turn_lock = 0;              // Grab turn_lock
+    var maximum_tries = 100;    // Randomly make maximum_tries to make a move
+    var r;                      // Row of the move to be made
+    var c;                      // Col of the move to be made
+    var selector;               // CSS selector of the position
+    var winner;                 // Determines winner, if there is one yet
 
     // Randomly make a move on an empty square
     for (var i = 1; i <= maximum_tries; i++) {
-        n = rand_int(1, 9);
-        selector = "#p".concat(n);
+        r = rand_int(1, 3);
+        c = rand_int(1, 3);
+        selector = "#r".concat(r, "c", c);
 
         // If square is empty...
         if ($(selector).is(":empty")) {
             // ...make move after brief delay
             setTimeout(function(){$(selector).html(m);}, delay_duration);
-            move_made = true;
             break;
         }
     }
 
-    // If move not made after max tries, move to next available square
-    if (!move_made) {
-        n = get_available_square(1, 9);
+    moves += 1;
+    update_scores("computer", r, c);    
+    winner = check_winner();
 
-        if (n != -1) {
-            selector = "#p".concat(n);
-            setTimeout(function(){$(selector).html(m);}, delay_duration);
-            move_made = true;
-        }
+    if (winner) {            
+        setTimeout(function(){display_winner(winner);}, delay_duration);  
     }
-
-    if (move_made) {
-        moves += 1;
-        update_scores("computer", n);    
-        var winner = check_winner();
-
-        if (winner) {            
-            setTimeout(function(){display_winner(winner);}, delay_duration);  
-        }
-        else {
-            // Wait for computer to finish making move before releasing turn_lock
-            setTimeout(function(){turn_lock = 1;}, delay_duration);            
-        }
+    else {
+        // Wait for computer to finish making move before releasing turn_lock
+        setTimeout(function(){turn_lock = 1;}, delay_duration);            
     }
-}
-
-// Returns the first empty square found on the board
-// Function called rarely, when computer doesn't move after max tries
-function get_available_square(min, max) {
-    for (var n = min; n <= max; n++) {
-        var selector = "#p".concat(n);
-
-        if ($(selector).is(":empty")) {
-            return n;
-        }
-    }
-
-    return -1;
 }
 
 // Update the scores array
-function update_scores(who, pos) {
+function update_scores(who, r, c) {
     var point = (who == "computer") ? -1:1;
+    var grid_size = 3;
 
-    switch(pos) {
-        case 1:
-            scores[0] += point;
-            scores[3] += point;
-            scores[6] += point;
-            break;
-        case 2:
-            scores[0] += point;
-            scores[4] += point;
-            break;
-        case 3:
-            scores[0] += point;
-            scores[5] += point;
-            scores[7] += point;
-            break;
-        case 4:
-            scores[1] += point;
-            scores[3] += point;
-            break;
-        case 5:
-            scores[1] += point;
-            scores[4] += point;
-            scores[6] += point;
-            scores[7] += point;
-            break;
-        case 6:
-            scores[1] += point;
-            scores[5] += point;
-            break;
-        case 7:
-            scores[2] += point;
-            scores[3] += point;
-            scores[7] += point;
-            break;
-        case 8:
-            scores[2] += point;
-            scores[4] += point;
-            break;
-        case 9:
-            scores[2] += point;
-            scores[5] += point;
-            scores[6] += point;
-    }
+    scores[r - 1] += point;
+    scores[grid_size + (c - 1)] += point;
+    if (r == c) scores[2 * grid_size] += point;
+    if (grid_size - 1 - (c - 1) == (r - 1)) scores[2 * grid_size + 1] += point;
 }
 
 // Ruturns whether or not there is a winner
