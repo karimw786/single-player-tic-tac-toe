@@ -1,5 +1,5 @@
 <?php
-require_once("includes/header.php");
+session_start();
 
 if (!isset($_SESSION["player_name"]) or !isset($_SESSION["player_move"])) {
     header("location: register.php");
@@ -8,6 +8,8 @@ if (!isset($_SESSION["player_name"]) or !isset($_SESSION["player_move"])) {
 require_once("includes/win_loss_draw_vars.php");
 require_once("includes/output_helpers.php");
 ?>
+
+    <?php output_doc_head(); ?> 
 
     <div class="row">
         <div class="col">

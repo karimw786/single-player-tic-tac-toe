@@ -1,5 +1,5 @@
 <?php
-require_once("includes/header.php");
+session_start();
 
 if (isset($_POST["player_name"]) and isset($_POST["player_move"])) {
     $_SESSION["player_name"] = $_POST["player_name"];
@@ -12,7 +12,11 @@ if (isset($_POST["player_name"]) and isset($_POST["player_move"])) {
 
     header("location: play.php");
 }
+
+require_once("includes/output_helpers.php");
 ?>
+
+    <?php output_doc_head(); ?>    
 
     <div class="row">
         <div class="col">
