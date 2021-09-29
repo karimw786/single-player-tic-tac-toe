@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// If user has registered, take them to the game board
 if (isset($_POST["player_name"]) and isset($_POST["player_move"])) {
     $_SESSION["player_name"] = $_POST["player_name"];
     $_SESSION["player_move"] = $_POST["player_move"];
@@ -13,10 +14,8 @@ if (isset($_POST["player_name"]) and isset($_POST["player_move"])) {
     header("location: play.php");
 }
 
-require_once("includes/output_helpers.php");
+require_once("includes/header.php");
 ?>
-
-    <?php output_doc_head(); ?>    
 
     <div class="row">
         <div class="col">

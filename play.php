@@ -1,15 +1,36 @@
 <?php
 session_start();
 
+// If user is NOT already registered, allow them to register
 if (!isset($_SESSION["player_name"]) or !isset($_SESSION["player_move"])) {
     header("location: register.php");
 }
 
-require_once("includes/win_loss_draw_vars.php");
-require_once("includes/output_helpers.php");
-?>
+// Initialize win/loss/draw session variables, if not already set
+if (!isset($_SESSION["player_wins"])) {
+    $_SESSION["player_wins"] = 0;
+}
+if (!isset($_SESSION["player_losses"])) {
+    $_SESSION["player_losses"] = 0;
+}
+if (!isset($_SESSION["player_draws"])) {
+    $_SESSION["player_draws"] = 0;
+}
 
-    <?php output_doc_head(); ?> 
+// If win/loss/draw post variables are set, increment associated session variables
+if (isset($_POST["player_wins"])) {
+    $_SESSION["player_wins"] += $_POST["player_wins"];
+}
+elseif (isset($_POST["player_losses"])) {
+    $_SESSION["player_losses"] += $_POST["player_losses"];
+}
+elseif (isset($_POST["player_draws"])) {
+    $_SESSION["player_draws"] += $_POST["player_draws"];
+}
+
+require_once("includes/output_helpers.php");
+require_once("includes/header.php");
+?> 
 
     <div class="row">
         <div class="col">
