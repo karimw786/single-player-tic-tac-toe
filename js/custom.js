@@ -121,7 +121,7 @@ function display_winner(win_code) {
     }
 }
 
-// Generate random int between min and max
+// Generate random int between min and max (both inclusive)
 function rand_int(min, max) {
-    return Math.floor(Math.random() * max) + min;
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
