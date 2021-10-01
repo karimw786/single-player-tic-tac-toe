@@ -1,9 +1,9 @@
 /* Bootstrap overrides */
 h1.text-center {
-    margin: 5px auto 15px auto;
+    margin-top: 5px;
 }
 .form-group {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 /* Custom styles */
