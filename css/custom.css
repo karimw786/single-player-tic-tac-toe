@@ -5,22 +5,18 @@ h1.text-center {
 .form-group {
     margin-top: 20px;
 }
+
 /* Custom styles */
 .board {
     margin-top: 10px;
     cursor: pointer;
-}
-.board .row {
-    --bs-gutter-x: 0;
 }
 .board .col {
     text-align: center;
     font-size: 90px;
     min-height: 140px;
 }
-.highlight-move {
-    color: #339933;
-}
+
 /* Custom regions */
 #wins_losses {
     text-align: center;

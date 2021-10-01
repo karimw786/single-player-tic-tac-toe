@@ -2,7 +2,7 @@
 session_start();
 
 // If user is NOT already registered, allow them to register
-if (!isset($_SESSION["player_name"]) or !isset($_SESSION["player_move"])) {
+if (!isset($_SESSION["player_name"]) or !isset($_SESSION["player_move"]) or !isset($_SESSION["grid_size"])) {
     header("location: register.php");
 }
 
@@ -58,7 +58,7 @@ require_once("includes/header.php");
         </div>
     </div>
 
-    <?php draw_board(3, 3); ?>
+    <?php draw_board($_SESSION["grid_size"], $_SESSION["grid_size"]); ?>
     <?php output_modal("playerWinnerModal", "Congrats, " . $_SESSION['player_name'] . "! You win!"); ?>
     <?php output_modal("computerWinnerModal", "Computer wins. Better luck next time, " . $_SESSION['player_name'] . "!"); ?>
     <?php output_modal("noWinnerModal", "It's a draw!"); ?>

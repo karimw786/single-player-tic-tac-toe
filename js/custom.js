@@ -4,15 +4,16 @@ var scores = [0, 0, 0, 0, 0, 0, 0, 0];  // Stores scores:
 var moves = 0;                          // Counts number of moves
 var delay_duration = 500;               // In milliseconds
 var turn_lock = 1;                      // Lock must be held before being able to make a move
+var grid_size = 3;                      // Default board will be 3x3, unless overridden
 
 // Places X or O based on the empty square selected by player
 function player_move(id, m) {
     // If player holds turn_lock, proceed with making move
     if (turn_lock == 1) {
-        var r = id.charAt(1);                   // Row of the move to be made
-        var c = id.charAt(3);                   // Col of the move to be made
-        var selector = "#r".concat(r, "c", c);  // CSS selector of the position 
-        var winner;                             // Determines winner, if there is one yet
+        var r = id.substring(1, id.indexOf("c"));   // Row of the move to be made
+        var c = id.substring(id.indexOf("c") + 1);  // Col of the move to be made
+        var selector = "#r".concat(r, "c", c);      // CSS selector of the position 
+        var winner;                                 // Determines winner, if there is one yet
 
         // If square is empty...
         if ($(selector).is(":empty")) {
@@ -38,7 +39,7 @@ function player_move(id, m) {
 // Computer places X or O (m) randomly on an empty square
 function computer_move(m) {
     turn_lock = 0;              // Grab turn_lock
-    var maximum_tries = 100;    // Randomly make maximum_tries to make a move
+    var maximum_tries = 500;    // Randomly make maximum_tries to make a move
     var r;                      // Row of the move to be made
     var c;                      // Col of the move to be made
     var selector;               // CSS selector of the position
@@ -46,8 +47,8 @@ function computer_move(m) {
 
     // Randomly make a move on an empty square
     for (var i = 1; i <= maximum_tries; i++) {
-        r = rand_int(1, 3);
-        c = rand_int(1, 3);
+        r = rand_int(1, grid_size);
+        c = rand_int(1, grid_size);
         selector = "#r".concat(r, "c", c);
 
         // If square is empty...
@@ -74,7 +75,6 @@ function computer_move(m) {
 // Update the scores array
 function update_scores(who, r, c) {
     var point = (who == "computer") ? -1:1;
-    var grid_size = 3;
 
     scores[r - 1] += point;
     scores[grid_size + (c - 1)] += point;
@@ -85,15 +85,15 @@ function update_scores(who, r, c) {
 // Ruturns whether or not there is a winner
 function check_winner() {
     for (var i = 0; i < scores.length; i++) {
-        if (scores[i] == 3) {
+        if (scores[i] == grid_size) {
             return 1; // Player won
         }
-        else if (scores[i] == -3) {
+        else if (scores[i] == -(grid_size)) {
             return 2; // Computer won
         }
     }
 
-    if (moves == 9) {
+    if (moves == (grid_size * grid_size)) {
         return 3; // Draw
     }
 

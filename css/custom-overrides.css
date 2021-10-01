@@ -1,0 +1,13 @@
+/* Overrides for custom styles */
+.board .col {
+    font-size: 70px;
+    min-height: 120px;
+}
+
+/* Overrides for custom regions */
+#r1c4, #r2c4, #r3c4, #r3c1, #r3c2, #r3c3, #r3c4 {
+    border-bottom: 3px solid #000000;
+}
+#r4c1, #r4c2, #r1c3, #r2c3, #r3c3, #r4c3 {
+    border-right: 3px solid #000000;    
+}
