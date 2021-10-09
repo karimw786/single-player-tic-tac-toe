@@ -15,11 +15,11 @@
         // If user chooses to move first, wait for their first move 
         if (isset($_SESSION["player_move"])) {
             if ($_SESSION["player_move"] == "X") {
-                $extra_js .= '$(document).ready(function() {$(".board .col").click(function(event) {player_move(this.id, "X");});});';
+                $extra_js .= '$(document).ready(function() {$(".board .col").click(function(event) {make_move(this.id, "X");});});';
             }
             // If user chooses to move second, computer makes first move
             else {
-                $extra_js .= '$(document).ready(function() {computer_move("X"); $(".board .col").click(function(event) {player_move(this.id, "O");});});';
+                $extra_js .= '$(document).ready(function() {computer_move("X"); $(".board .col").click(function(event) {make_move(this.id, "O");});});';
             }
         }
         

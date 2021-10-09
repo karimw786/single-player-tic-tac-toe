@@ -7,7 +7,7 @@ var turn_lock = 1;                      // Lock must be held before being able t
 var grid_size = 3;                      // Default board will be 3x3, unless overridden
 
 // Places X or O based on the empty square selected by player
-function player_move(id, m) {
+function make_move(id, m) {
     // If player holds turn_lock, proceed with making move
     if (turn_lock == 1) {
         var r = id.substring(1, id.indexOf("c"));   // Row of the move to be made
