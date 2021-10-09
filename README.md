@@ -15,4 +15,6 @@ Deployment Instructions
 
 > docker-compose up
 
+Otherwise, simply put the code in your web server's document root.
+
 4. Open your web browser and navigate to: http://127.0.0.1
