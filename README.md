@@ -11,9 +11,10 @@ Deployment Instructions
 
 > cd single-player-tic-tac-toe
 
-3. If deploying on a Docker container, run docker-compose up:
+3. If deploying on a Docker container, run the following commands:
 
-> docker-compose up
+> docker build -t two-player-tic-tac-toe .
+> docker run -d -p 80:80 -p 8080:8080 two-player-tic-tac-toe
 
 Otherwise, simply put the code in your web server's document root.
 
