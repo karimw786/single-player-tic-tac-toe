@@ -13,9 +13,9 @@ Single-player tic-tac-toe game written in PHP, HTML, CSS (Bootstrap), and JavaSc
 
 1. If deploying on a Docker container, run the following commands:
 
-    ```docker build -t two-player-tic-tac-toe .```
+    ```docker build -t single-player-tic-tac-toe .```
 
-    ```docker run -d -p 80:80 -p 8080:8080 two-player-tic-tac-toe```
+    ```docker run -d -p 80:80 -p 8080:8080 single-player-tic-tac-toe```
 
     Otherwise, simply put the code in your web server's document root.
 
